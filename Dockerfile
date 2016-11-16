@@ -4,21 +4,6 @@ MAINTAINER Youcef Rahal
 
 RUN apt-get update --fix-missing
 
-# Fetch and install Anaconda3 and dependencies
-RUN apt-get install -y wget bzip2 && \
-    wget https://repo.continuum.io/archive/Anaconda3-4.2.0-Linux-x86_64.sh -O ~/anaconda.sh && \
-    /bin/bash ~/anaconda.sh -b -p /opt/anaconda3 && \
-    rm ~/anaconda.sh
-# Add Anaconda3 to the PATH
-ENV PATH /opt/anaconda3/bin:$PATH
-
-# Update pip
-RUN pip install --upgrade pip
-
-# Install opencv and moviepy (pillow is already installed)
-RUN conda install -y -c https://conda.anaconda.org/menpo opencv3 && \
-    pip install moviepy
-
 # Install firefox (for jupyter)
 RUN apt-get install -y firefox
 
@@ -37,6 +22,28 @@ RUN apt-get install -y software-properties-common
 RUN add-apt-repository multiverse
 RUN apt-get update
 RUN apt-get install -y gstreamer1.0-libav
+
+# Install git because it's lightweight and it's useful to have it in the container
+RUN apt-get install -y git
+
+# Fetch and install Anaconda3 and dependencies
+RUN apt-get install -y wget bzip2 && \
+    wget https://repo.continuum.io/archive/Anaconda3-4.2.0-Linux-x86_64.sh -O ~/anaconda.sh && \
+    /bin/bash ~/anaconda.sh -b -p /opt/anaconda3 && \
+    rm ~/anaconda.sh
+# Add Anaconda3 to the PATH
+ENV PATH /opt/anaconda3/bin:$PATH
+
+# Update pip
+RUN pip install --upgrade pip
+
+# Install opencv and moviepy (pillow is already installed)
+RUN conda install -y -c https://conda.anaconda.org/menpo opencv3 && \
+    pip install moviepy
+
+# Install TensorFlow
+RUN conda install -y -c conda-forge tensorflow
+RUN conda install -y scikit-learn
 
 # Set the working directory
 WORKDIR /src
