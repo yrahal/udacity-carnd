@@ -45,6 +45,17 @@ RUN conda install -y -c https://conda.anaconda.org/menpo opencv3 && \
 RUN conda install -y -c conda-forge tensorflow
 RUN conda install -y scikit-learn
 
+# Install Keras
+RUN pip install keras
+# Set Keras to use Tensorflow
+RUN mkdir ~/.keras && echo "{ \"image_dim_ordering\": \"tf\", \"epsilon\": 1e-07, \"backend\": \"tensorflow\", \"floatx\": \"float32\" }" >  ~/.keras/keras.json
+
+# Run these import once so they don't happen every time the container is run
+# Matplotlib needs to build the font cache
+RUN python -c 'import matplotlib.pyplot as plt'
+# Moviepy needs to download ffmpeg
+RUN python -c 'from moviepy.editor import VideoFileClip'
+
 # Set the working directory
 WORKDIR /src
 
