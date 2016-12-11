@@ -56,6 +56,12 @@ RUN python -c 'import matplotlib.pyplot as plt'
 # Moviepy needs to download ffmpeg
 RUN python -c 'from moviepy.editor import VideoFileClip'
 
+# Install flask-socketio
+RUN conda install -y -c conda-forge flask-socketio
+
+# Install eventlet
+RUN conda install -y -c conda-forge eventlet
+
 # Set the working directory
 WORKDIR /src
 
