@@ -62,6 +62,9 @@ RUN conda install -y -c conda-forge flask-socketio
 # Install eventlet
 RUN conda install -y -c conda-forge eventlet
 
+# Create a command to run Jupyter notebooks
+RUN echo "jupyter notebook --no-browser --ip='*'" > /bin/run_jupyter.sh && chmod a+x /bin/run_jupyter.sh
+
 # Set the working directory
 WORKDIR /src
 
