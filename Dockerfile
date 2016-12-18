@@ -53,8 +53,8 @@ RUN mkdir ~/.keras && echo "{ \"image_dim_ordering\": \"tf\", \"epsilon\": 1e-07
 # Run these import once so they don't happen every time the container is run
 # Matplotlib needs to build the font cache
 RUN python -c 'import matplotlib.pyplot as plt'
-# Moviepy needs to download ffmpeg
-RUN python -c 'from moviepy.editor import VideoFileClip'
+# Download ffmpeg
+RUN (echo "import imageio"; echo "imageio.plugins.ffmpeg.download()") | python
 
 # Install flask-socketio
 RUN conda install -y -c conda-forge flask-socketio
