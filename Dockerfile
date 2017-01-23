@@ -62,8 +62,17 @@ RUN conda install -y -c conda-forge flask-socketio
 # Install eventlet
 RUN conda install -y -c conda-forge eventlet
 
+# Install peakutils (useful for P4)
+RUN pip install peakutils
+
+# Install jupyter-themes
+RUN pip install jupyterthemes
+
 # Create a command to run Jupyter notebooks
 RUN echo "jupyter notebook --no-browser --ip='*'" > /bin/run_jupyter.sh && chmod a+x /bin/run_jupyter.sh
+
+# Create a command to set the jupyter theme
+RUN echo "jt -T -cellw 1400 -t chesterish -fs 8 -nfs 6 -tfs 6" > /bin/jupyter_theme.sh && chmod a+x /bin/jupyter_theme.sh
 
 # Set the working directory
 WORKDIR /src
