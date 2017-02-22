@@ -33,6 +33,9 @@ useful.
   * Maps the Docker volume `kitt-home` to the `kitt` home directory on the container. This volume
   exists on the host and is created on the first run. This is useful to persist the preferences
   between sessions, but is not required.
+* `run_jupyter.sh`: Another script provided for convenience, which mimics the previous one except:
+  * Runs a jupyter server by default. So no `x11vnc` server is launched. Therefore, only the 
+    `8888` port is mapped.
 * `build.sh`: Script to build the image from the `Dockerfile`.
 * `Dockerfile`: File used to build the image. This image is hosted on Docker Hub as
 [`yrahal/udacity-carnd`](https://hub.docker.com/r/yrahal/udacity-carnd).
