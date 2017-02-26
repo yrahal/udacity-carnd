@@ -1,4 +1,6 @@
 # udacity-carnd
+<img src="images/screenshot.png" width="600"/>
+
 Creates a Docker image with all the prerequisites needed to run the projects of the [Udacity Self-Driving
 Car Nanodegree](https://www.udacity.com/course/self-driving-car-engineer-nanodegree--nd013).
 
@@ -22,7 +24,7 @@ usage. The notable differences is that `yrahal/dev-machine` must be replaced by 
 and that the default user in `yrahal/udacity-carnd` is... `kitt`.
 
 You might also find this [Medium post](https://medium.com/@YoucefRahal/docker-image-for-the-udacity-self-driving-car-nanodegree-with-ui-995d58ab92d6)
-useful.
+and this [YouTube video](https://www.youtube.com/watch?v=PUGERKPzFD4) useful.
 
 ## Files
 * `run.sh`: Script provided for convenience to run the image with some useful mappings:
