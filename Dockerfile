@@ -7,7 +7,7 @@ USER root
 # Install extras to be able read media files
 RUN apt-get install -y software-properties-common
 RUN add-apt-repository multiverse
-RUN apt-get update
+#RUN apt-get update # TODO uncomment when VS Code fixes it.
 RUN apt-get install -y gstreamer1.0-libav
 
 # Clean
