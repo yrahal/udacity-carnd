@@ -30,10 +30,11 @@ RUN pip install --upgrade pip
 # Install eventlet
 # Install peakutils (useful for P4)
 # Install jupyter-themes
+# Install plotly
 RUN conda install -y scikit-learn && \
     conda install -y -c https://conda.anaconda.org/menpo opencv3 && \
     conda install -y -c conda-forge tensorflow flask-socketio eventlet && \
-    pip install moviepy peakutils jupyterthemes keras
+    pip install moviepy peakutils jupyterthemes keras plotly
 
 # Create a command to run Jupyter notebooks
 RUN echo "jupyter notebook --no-browser --ip='*'" > /bin/run_jupyter.sh && chmod a+x /bin/run_jupyter.sh
