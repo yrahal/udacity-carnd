@@ -36,6 +36,21 @@ RUN conda install -y scikit-learn && \
     conda install -y -c conda-forge tensorflow flask-socketio eventlet && \
     pip install moviepy peakutils jupyterthemes keras plotly
 
+# Install uWebSockets-0.13.0 and dependencies
+RUN apt-get install -y libuv1-dev libssl-dev
+RUN wget https://github.com/uWebSockets/uWebSockets/archive/v0.13.0.tar.gz -O uws.tar.gz && \
+    tar xvfz uws.tar.gz && \
+    cd uWebSockets-0.13.0 && \
+    mkdir build && \
+    cd build && \
+    cmake .. && \
+    make && \
+    make install && \
+    cd ../../ && \
+    rm -r uWebSockets-0.13.0 && \
+    rm uws.tar.gz && \
+    ln -s /usr/lib64/libuWS.so /usr/lib/libuWS.so
+
 # Create a command to run Jupyter notebooks
 RUN echo "jupyter notebook --no-browser --ip='*'" > /bin/run_jupyter.sh && chmod a+x /bin/run_jupyter.sh
 
@@ -60,5 +75,6 @@ RUN python -c 'import matplotlib.pyplot as plt'
 # Download ffmpeg
 RUN (echo "import imageio"; echo "imageio.plugins.ffmpeg.download()") | python
 
-# The port where jupyter will be running
+# The port where jupyter will be running and the port the simulator will be listening on
 EXPOSE 8888
+EXPOSE 4567
