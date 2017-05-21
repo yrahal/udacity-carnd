@@ -51,6 +51,45 @@ RUN wget https://github.com/uWebSockets/uWebSockets/archive/v0.13.0.tar.gz -O uw
     rm uws.tar.gz && \
     ln -s /usr/lib64/libuWS.so /usr/lib/libuWS.so
 
+# Install cppad and ipopt and dependencies
+RUN apt-get install -y cppad gfortran
+RUN wget https://www.coin-or.org/download/source/Ipopt/Ipopt-3.12.7.tgz && \
+    tar xvfz Ipopt-3.12.7.tgz && \
+    rm Ipopt-3.12.7.tgz && \
+    cd Ipopt-3.12.7 && \
+    
+    # BLAS
+    cd ThirdParty/Blas && \
+    ./get.Blas && \
+    mkdir -p build && cd build && \
+    ../configure --prefix=/usr/local --disable-shared --with-pic && \
+    make install && \
+
+    # Lapack
+    cd ../../../ThirdParty/Lapack && \
+    ./get.Lapack && \
+    mkdir -p build && cd build && \
+    ../configure --prefix=/usr/local --disable-shared --with-pic --with-blas="/usr/local/lib/libcoinblas.a -lgfortran" && \
+    make install && \
+
+    # ASL
+    cd ../../../ThirdParty/ASL && \
+    ./get.ASL && \
+
+    # MUMPS
+    cd ../../ThirdParty/Mumps && \
+    ./get.Mumps && \
+
+    # build everything
+    cd ../../ && \
+    ./configure --prefix=/usr/local coin_skip_warn_cxxflags=yes --with-blas="/usr/local/lib/libcoinblas.a -lgfortran" --with-lapack=/usr/local/lib/libcoinlapack.a && \
+    make && \
+    make test && \
+    make -j1 install && \
+
+    cd .. && \
+    rm -r Ipopt-3.12.7
+
 # Create a command to run Jupyter notebooks
 RUN echo "jupyter notebook --no-browser --ip='*'" > /bin/run_jupyter.sh && chmod a+x /bin/run_jupyter.sh
 
