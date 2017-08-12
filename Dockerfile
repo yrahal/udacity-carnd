@@ -4,19 +4,19 @@ MAINTAINER Youcef Rahal
 
 USER root
 
+RUN apt-get update --fix-missing
+
 # Install extras to be able read media files
 RUN apt-get install -y software-properties-common
 RUN add-apt-repository multiverse
 #RUN apt-get update # TODO uncomment when VS Code fixes it.
 RUN apt-get install -y gstreamer1.0-libav
 
-# Clean
-RUN apt-get clean
-
 # Fetch and install Anaconda3 and dependencies
 RUN wget https://repo.continuum.io/archive/Anaconda3-4.2.0-Linux-x86_64.sh -O ~/anaconda.sh && \
     /bin/bash ~/anaconda.sh -b -p /opt/anaconda3 && \
     rm ~/anaconda.sh
+
 # Add Anaconda3 to the PATH
 ENV PATH /opt/anaconda3/bin:$PATH
 
@@ -90,6 +90,11 @@ RUN wget https://www.coin-or.org/download/source/Ipopt/Ipopt-3.12.7.tgz && \
     cd .. && \
     rm -r Ipopt-3.12.7
 
+# Clean
+RUN apt-get clean && \
+    apt-get autoremove && \
+    rm -r /var/lib/apt/lists/*
+
 # Create a command to run Jupyter notebooks
 RUN echo "jupyter notebook --no-browser --ip='*'" > /bin/run_jupyter.sh && chmod a+x /bin/run_jupyter.sh
 
@@ -101,9 +106,6 @@ RUN usermod -l kitt -m -d /home/kitt orion
 
 # The next commands will be run as the new user
 USER kitt
-
-# Add Anaconda3 to the PATH
-ENV PATH /opt/anaconda3/bin:$PATH
 
 # Set Keras to use Tensorflow
 RUN mkdir ~/.keras && echo "{ \"image_dim_ordering\": \"tf\", \"epsilon\": 1e-07, \"backend\": \"tensorflow\", \"floatx\": \"float32\" }" >  ~/.keras/keras.json
