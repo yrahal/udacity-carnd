@@ -101,8 +101,9 @@ RUN echo "jupyter notebook --no-browser --ip='*'" > /bin/run_jupyter.sh && chmod
 # Create a command to set the jupyter theme
 RUN echo "jt -T -cellw 1400 -t chesterish -fs 8 -nfs 6 -tfs 6" > /bin/jupyter_theme.sh && chmod a+x /bin/jupyter_theme.sh
 
-# Rename orion to kitt
+# Rename orion user/group to kitt
 RUN usermod -l kitt -m -d /home/kitt orion
+RUN groupmod -n kitt orion
 
 # The next commands will be run as the new user
 USER kitt
