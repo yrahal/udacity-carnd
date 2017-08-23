@@ -1,3 +1,6 @@
+[![Docker Stars](https://img.shields.io/docker/stars/yrahal/udacity-carnd.svg)](https://hub.docker.com/r/yrahal/udacity-carnd/)
+[![Docker Pulls](https://img.shields.io/docker/pulls/yrahal/udacity-carnd.svg)](https://hub.docker.com/r/yrahal/udacity-carnd/)
+
 # udacity-carnd
 <img src="images/screenshot.png" width="600"/>
 
