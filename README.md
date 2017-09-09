@@ -38,7 +38,7 @@ and this [YouTube video](https://www.youtube.com/watch?v=PUGERKPzFD4) useful.
   the host. It also maps the `8888` jupyter and `4567` simulator ports to that of the host.
   * Maps the current directory on the host to `/src` on the container (which is the default working
   directory).
-  * Maps the Docker volume `kitt_home` to the `kitt` home directory on the container. This volume
+  * Maps the Docker volume `kitt-home` to the `kitt` home directory on the container. This volume
   exists on the host and is created on the first run. This is useful to persist the preferences
   between sessions, but is not required.
 * `run_jupyter.sh`: Another script provided for convenience, which mimics the previous one except:
