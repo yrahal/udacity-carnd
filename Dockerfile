@@ -26,7 +26,7 @@ RUN pip install --upgrade pip
 RUN conda create -y -n cpu
 
 RUN /bin/bash -c "source activate cpu && \
-    conda install -y sympy scikit-learn scikit-image pillow flask-socketio plotly nb_conda pyqtgraph seaborn pandas && \
+    conda install -y sympy scikit-learn scikit-image pillow flask-socketio plotly nb_conda pyqtgraph seaborn pandas h5py && \
     conda install -y -c menpo opencv3 && \
     conda install -y -c conda-forge eventlet ffmpeg && \
     pip install moviepy peakutils jupyterthemes && \
