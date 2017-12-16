@@ -15,7 +15,7 @@ RUN apt-get install -y gstreamer1.0-libav
 # Install uWebSockets-0.13.0 and dependencies
 RUN apt-get install -y libuv1-dev libssl-dev
 RUN wget https://github.com/uWebSockets/uWebSockets/archive/v0.13.0.tar.gz -O uws.tar.gz && \
-    tar xvfz uws.tar.gz && \
+    echo 'Unpacking...' && tar xfz uws.tar.gz && \
     cd uWebSockets-0.13.0 && \
     mkdir build && \
     cd build && \
@@ -30,7 +30,7 @@ RUN wget https://github.com/uWebSockets/uWebSockets/archive/v0.13.0.tar.gz -O uw
 # Install cppad and ipopt and dependencies
 RUN apt-get install -y cppad gfortran
 RUN wget https://www.coin-or.org/download/source/Ipopt/Ipopt-3.12.7.tgz && \
-    tar xvfz Ipopt-3.12.7.tgz && \
+    echo 'Unpacking...' && tar xfz Ipopt-3.12.7.tgz && \
     rm Ipopt-3.12.7.tgz && \
     cd Ipopt-3.12.7 && \
     
